@@ -54,7 +54,7 @@ main:
   # Take in the user's input
   li $v0, 7
   syscall
-  move $v0, $t0 # Move input to $t0
+  move $v0, $t3 # Move input to $t0
   # Storing the input into a floating point variable
   mtc1 $t0, $f2 # Move input to $f2
   j isLess
@@ -67,10 +67,10 @@ main:
      bc1f isGreater # Check if greater than 20 if no
     
   isGreater:
-    # Branch to main if more than $20.00
-    c.lt.s $f2, $f1 # Is the input less than the maximum
-    bc1t invalidInput # Invalidate if no
-    bc1f validInput # Validate if yes
+    # Check if input is over $20.00
+    c.lt.s $f2, $f1 # Is the input less than the maximum ($f2 < $f1)
+    bc1f invalidInput # Invalidate if no
+    bc1t validInput # Validate if yes
     
     # In case of innvalid response
     invalidInput:
